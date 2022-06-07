@@ -31,8 +31,10 @@ try{
 
   const isValidated = await bcrypt.compare(req.body.password, user.password)
   !isValidated && res.status(400).json("Wrong Cridencials");
-
-  res.status(200).json(user)
+  
+  const {password, ...authedUser} = user._doc;
+  
+  res.status(200).json(authedUser)
   
 } catch(err){
   res.status(500).json(err)
